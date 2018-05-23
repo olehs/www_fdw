@@ -771,6 +771,7 @@ static
 void
 serialize_request_with_callback(WWW_fdw_options *opts, Oid opts_type, Datum opts_value, ForeignScanState *node, StringInfoData *url, PostParameters *post)
 {
+<<<<<<< HEAD
     int    res;
     StringInfoData    cmd, qualSer;
     Oid    argtypes[4];
@@ -911,6 +912,26 @@ serialize_list_separator_callback_json) );
     MemoryContextSwitchTo(spimctxt);
 
     SPI_finish_wrapper();
+
+    if (node->ss.ps.plan->qual)
+    {
+        ListCell   *lc;
+        List	   *quals = list_copy(node->ss.ps.qual);
+
+        foreach (lc, quals)
+        {
+            ExprState	   *state = lfirst(lc);
+
+            char *param = www_param((Node *) state->expr,
+                    node->ss.ss_currentRelation->rd_att);
+
+            if (param)
+            {
+                /* take it from original qual */
+                node->ss.ps.qual = list_delete(node->ss.ps.qual, (void *) state);
+            }
+        }
+    }
 }
 
 /*
