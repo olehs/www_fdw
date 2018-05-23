@@ -771,7 +771,6 @@ static
 void
 serialize_request_with_callback(WWW_fdw_options *opts, Oid opts_type, Datum opts_value, ForeignScanState *node, StringInfoData *url, PostParameters *post)
 {
-<<<<<<< HEAD
     int    res;
     StringInfoData    cmd, qualSer;
     Oid    argtypes[4];
