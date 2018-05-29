@@ -15,8 +15,8 @@ LIBJSON		= libjson-0.8
 #MODULES		= $(patsubst %.c,%,$(wildcard src/*.c))
 MODULE_big	= $(EXTENSION)
 OBJS		= $(patsubst %.c,%.o,$(wildcard src/*.c)) $(LIBJSON)/json.o
-PG_CPPFLAGS	+= -I/usr/include/libxml2
-SHLIB_LINK	+= -lcurl -lxml2
+PG_CPPFLAGS	+= -I/usr/include/libxml2 `pkg-config --cflags libcurl`
+SHLIB_LINK	+= -lxml2 `pkg-config --libs libcurl`
 
 PG91         = $(shell $(PG_CONFIG) --version | grep -qE " 8\.| 9\.0" && echo no || echo yes)
 
