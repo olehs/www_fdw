@@ -2259,6 +2259,7 @@ get_options(Oid foreigntableid, WWW_fdw_options *opts)
     opts->method_delete    = NULL;
     opts->method_update    = NULL;
     opts->request_user_agent    = NULL;
+    opts->request_user_header   = NULL;
     opts->request_serialize_callback    = NULL;
     opts->request_serialize_type    = NULL;
     opts->request_serialize_human_readable    = NULL;
@@ -2364,7 +2365,6 @@ get_options(Oid foreigntableid, WWW_fdw_options *opts)
     if (!opts->method_update) opts->method_update    = "POST";
 
     if (!opts->request_user_agent) opts->request_user_agent    = "www_fdw postgres extension";
-    if (!opts->request_user_header) opts->request_user_header = "";
 
     if (!opts->request_serialize_type) opts->request_serialize_type    = "log";
     if (!opts->request_serialize_human_readable) opts->request_serialize_human_readable    = "0";
